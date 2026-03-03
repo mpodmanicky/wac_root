@@ -18,6 +18,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: ambulance-ufe/package-lock.json
     - run: npm ci
+      working-directory: ambulance-ufe
     - run: npm run build --if-present
+      working-directory: ambulance-ufe
     - run: npm test
+      working-directory: ambulance-ufe

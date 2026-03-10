@@ -4,8 +4,11 @@ metadata:
   name: mp-ambulance-ufe-content
 spec:
   microFrontend: mp-ambulance-ufe
-  element: mp-ambulance-wl-list
+  element: mp-ambulance-wl-app
+  attributes:
+    - name: base-path
+      value: /mp-ambulance-wl/
   displayRules:
     - allOf:
-      - context-name: main-content
-      - path: "^(\\.?/)?mp-ambulance-wl(/.*)?$"
+        - context-name: main-content
+        - path: "^(\\.?/)?mp-ambulance-wl(/.*)?$"

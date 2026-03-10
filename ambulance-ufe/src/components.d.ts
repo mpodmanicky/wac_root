@@ -6,6 +6,12 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface MpAmbulanceWlApp {
+        /**
+          * @default ''
+         */
+        "basePath": string;
+    }
     interface MpAmbulanceWlEditor {
         "entryId": string;
     }
@@ -30,7 +36,17 @@ export interface MpAmbulanceWlEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLMpAmbulanceWlEditorElement;
 }
+export interface MpAmbulanceWlListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLMpAmbulanceWlListElement;
+}
 declare global {
+    interface HTMLMpAmbulanceWlAppElement extends Components.MpAmbulanceWlApp, HTMLStencilElement {
+    }
+    var HTMLMpAmbulanceWlAppElement: {
+        prototype: HTMLMpAmbulanceWlAppElement;
+        new (): HTMLMpAmbulanceWlAppElement;
+    };
     interface HTMLMpAmbulanceWlEditorElementEventMap {
         "editor-closed": string;
     }
@@ -48,7 +64,18 @@ declare global {
         prototype: HTMLMpAmbulanceWlEditorElement;
         new (): HTMLMpAmbulanceWlEditorElement;
     };
+    interface HTMLMpAmbulanceWlListElementEventMap {
+        "entry-clicked": string;
+    }
     interface HTMLMpAmbulanceWlListElement extends Components.MpAmbulanceWlList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLMpAmbulanceWlListElementEventMap>(type: K, listener: (this: HTMLMpAmbulanceWlListElement, ev: MpAmbulanceWlListCustomEvent<HTMLMpAmbulanceWlListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLMpAmbulanceWlListElementEventMap>(type: K, listener: (this: HTMLMpAmbulanceWlListElement, ev: MpAmbulanceWlListCustomEvent<HTMLMpAmbulanceWlListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLMpAmbulanceWlListElement: {
         prototype: HTMLMpAmbulanceWlListElement;
@@ -61,17 +88,25 @@ declare global {
         new (): HTMLMyComponentElement;
     };
     interface HTMLElementTagNameMap {
+        "mp-ambulance-wl-app": HTMLMpAmbulanceWlAppElement;
         "mp-ambulance-wl-editor": HTMLMpAmbulanceWlEditorElement;
         "mp-ambulance-wl-list": HTMLMpAmbulanceWlListElement;
         "my-component": HTMLMyComponentElement;
     }
 }
 declare namespace LocalJSX {
+    interface MpAmbulanceWlApp {
+        /**
+          * @default ''
+         */
+        "basePath"?: string;
+    }
     interface MpAmbulanceWlEditor {
         "entryId"?: string;
         "onEditor-closed"?: (event: MpAmbulanceWlEditorCustomEvent<string>) => void;
     }
     interface MpAmbulanceWlList {
+        "onEntry-clicked"?: (event: MpAmbulanceWlListCustomEvent<string>) => void;
     }
     interface MyComponent {
         /**
@@ -88,6 +123,9 @@ declare namespace LocalJSX {
         "middle"?: string;
     }
 
+    interface MpAmbulanceWlAppAttributes {
+        "basePath": string;
+    }
     interface MpAmbulanceWlEditorAttributes {
         "entryId": string;
     }
@@ -98,6 +136,7 @@ declare namespace LocalJSX {
     }
 
     interface IntrinsicElements {
+        "mp-ambulance-wl-app": Omit<MpAmbulanceWlApp, keyof MpAmbulanceWlAppAttributes> & { [K in keyof MpAmbulanceWlApp & keyof MpAmbulanceWlAppAttributes]?: MpAmbulanceWlApp[K] } & { [K in keyof MpAmbulanceWlApp & keyof MpAmbulanceWlAppAttributes as `attr:${K}`]?: MpAmbulanceWlAppAttributes[K] } & { [K in keyof MpAmbulanceWlApp & keyof MpAmbulanceWlAppAttributes as `prop:${K}`]?: MpAmbulanceWlApp[K] };
         "mp-ambulance-wl-editor": Omit<MpAmbulanceWlEditor, keyof MpAmbulanceWlEditorAttributes> & { [K in keyof MpAmbulanceWlEditor & keyof MpAmbulanceWlEditorAttributes]?: MpAmbulanceWlEditor[K] } & { [K in keyof MpAmbulanceWlEditor & keyof MpAmbulanceWlEditorAttributes as `attr:${K}`]?: MpAmbulanceWlEditorAttributes[K] } & { [K in keyof MpAmbulanceWlEditor & keyof MpAmbulanceWlEditorAttributes as `prop:${K}`]?: MpAmbulanceWlEditor[K] };
         "mp-ambulance-wl-list": MpAmbulanceWlList;
         "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
@@ -107,6 +146,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "mp-ambulance-wl-app": LocalJSX.IntrinsicElements["mp-ambulance-wl-app"] & JSXBase.HTMLAttributes<HTMLMpAmbulanceWlAppElement>;
             "mp-ambulance-wl-editor": LocalJSX.IntrinsicElements["mp-ambulance-wl-editor"] & JSXBase.HTMLAttributes<HTMLMpAmbulanceWlEditorElement>;
             "mp-ambulance-wl-list": LocalJSX.IntrinsicElements["mp-ambulance-wl-list"] & JSXBase.HTMLAttributes<HTMLMpAmbulanceWlListElement>;
             "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
